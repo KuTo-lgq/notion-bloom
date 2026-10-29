@@ -1,0 +1,8 @@
+- insert:
+    - id: mcp-notion-bloom
+      name: "@deepseek-ai/dsh-mcp-client"
+      config:
+        serverName: notion-bloom
+        transport: stdio
+        command: npx
+        args: ["--no-install", "notion-bloom"]
