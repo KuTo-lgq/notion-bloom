@@ -1,0 +1,11 @@
+{
+  "mcpServers": {
+    "notion-bloom": {
+      "command": "npx",
+      "args": [
+        "--no-install",
+        "notion-bloom"
+      ]
+    }
+  }
+}

@@ -1,0 +1,3 @@
+[mcp_servers.notion-bloom]
+command = "npx"
+args = ["--no-install", "notion-bloom"]
