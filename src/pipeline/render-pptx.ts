@@ -8,19 +8,43 @@ import { mkdtemp, readdir, readFile } from "node:fs/promises";
 import { tmpdir } from "node:os";
 import path from "node:path";
 
-function run(command: string, args: string[]): Promise<void> {
+const TOOL_TIMEOUT_MS = 20_000;
+
+function spawnText(command: string, args: string[]): Promise<string> {
   return new Promise((resolve, reject) => {
     const child = spawn(command, args, { stdio: ["ignore", "pipe", "pipe"] });
+    let stdout = "";
     let stderr = "";
+    let settled = false;
+    const timer = setTimeout(() => {
+      child.kill("SIGKILL");
+      fail(new Error(`${command} 超时`));
+    }, TOOL_TIMEOUT_MS);
+    const fail = (error: Error) => {
+      if (settled) return;
+      settled = true;
+      clearTimeout(timer);
+      reject(error);
+    };
+    child.stdout.on("data", (chunk: Buffer) => {
+      stdout += chunk.toString();
+    });
     child.stderr.on("data", (chunk: Buffer) => {
       stderr += chunk.toString();
     });
-    child.on("error", reject);
+    child.on("error", fail);
     child.on("close", (code) => {
-      if (code === 0) resolve();
+      if (settled) return;
+      settled = true;
+      clearTimeout(timer);
+      if (code === 0) resolve(stdout.trim());
       else reject(new Error(stderr.trim() || `${command} exited ${code}`));
     });
   });
+}
+
+function run(command: string, args: string[]): Promise<void> {
+  return spawnText(command, args).then(() => undefined);
 }
 
 /** A screenshot of a slide, not a 1-pixel placeholder. */
@@ -44,22 +68,7 @@ for i, page in enumerate(doc):
     out[i+1] = path
 print(json.dumps(out))
 `;
-  const json = await new Promise<string>((resolve, reject) => {
-    const child = spawn("python3", ["-c", script, pdfPath, dir], { stdio: ["ignore", "pipe", "pipe"] });
-    let stdout = "";
-    let stderr = "";
-    child.stdout.on("data", (chunk: Buffer) => {
-      stdout += chunk.toString();
-    });
-    child.stderr.on("data", (chunk: Buffer) => {
-      stderr += chunk.toString();
-    });
-    child.on("error", reject);
-    child.on("close", (code) => {
-      if (code === 0) resolve(stdout.trim());
-      else reject(new Error(stderr.trim() || "pdf render failed"));
-    });
-  });
+  const json = await spawnText("python3", ["-c", script, pdfPath, dir]);
   const paths = JSON.parse(json) as Record<string, string>;
   const real = new Map<number, string>();
   for (const [number, file] of Object.entries(paths)) {
@@ -96,22 +105,7 @@ for i, page in enumerate(doc):
     out[i+1] = path
 print(json.dumps(out))
 `;
-  const json = await new Promise<string>((resolve, reject) => {
-    const child = spawn("python3", ["-c", script, path.join(dir, pdfName), dir], { stdio: ["ignore", "pipe", "pipe"] });
-    let stdout = "";
-    let stderr = "";
-    child.stdout.on("data", (chunk: Buffer) => {
-      stdout += chunk.toString();
-    });
-    child.stderr.on("data", (chunk: Buffer) => {
-      stderr += chunk.toString();
-    });
-    child.on("error", reject);
-    child.on("close", (code) => {
-      if (code === 0) resolve(stdout.trim());
-      else reject(new Error(stderr.trim() || "slide render failed"));
-    });
-  });
+  const json = await spawnText("python3", ["-c", script, path.join(dir, pdfName), dir]);
   const paths = JSON.parse(json) as Record<string, string>;
   const real = new Map<number, string>();
   for (const [number, file] of Object.entries(paths)) {
