@@ -8,14 +8,24 @@ Bloom 不自己调用大模型，也不是一个网站。它装在你已经在�
 
 ## 安装
 
-先安装 [Node.js](https://nodejs.org)。把这份代码放到一个文件夹里，在那个文件夹中执行：
+先安装 [Node.js](https://nodejs.org)。在你要使用 Bloom 的项目目录里执行：
 
 ```bash
+npx github:KuTo-lgq/notion-bloom install
+```
+
+这条命令从公开的 GitHub 仓库安装 Bloom，并把它登记给当前项目里的编程助手。这个包没有发布到 npm。
+
+也可以先把仓库克隆下来，再在那个文件夹里安装：
+
+```bash
+git clone https://github.com/KuTo-lgq/notion-bloom.git
+cd notion-bloom
 npm install
 npx notion-bloom install
 ```
 
-第一条安装运行所需的依赖。第二条把 Bloom 登记给当前项目里的编程助手。这个包没有发布到 npm，所以两条命令都要在这个文件夹里执行，换一个空目录是找不到它的。
+`npm install` 安装运行所需的依赖。`npx notion-bloom install` 把 Bloom 登记给当前项目里的编程助手。
 
 装完后重新打开助手。Codex 要先把这个项目标成受信任，项目里的配置才会生效。DeepSeek Harness 改完配置后，重新打开一次。
 
