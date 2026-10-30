@@ -14,19 +14,42 @@ import { extractPptx } from "@/ppt/extract";
 
 const PDF_SCRIPT = path.join(path.dirname(fileURLToPath(import.meta.url)), "extract_pdf.py");
 
+const TOOL_TIMEOUT_MS = 20_000;
+
 function run(command: string, args: string[]): Promise<void> {
   return new Promise((resolve, reject) => {
     const child = spawn(command, args, { stdio: ["ignore", "pipe", "pipe"] });
     let stderr = "";
+    let settled = false;
+    const timer = setTimeout(() => {
+      child.kill("SIGKILL");
+      fail(new Error(`${command} 超时`));
+    }, TOOL_TIMEOUT_MS);
+    const fail = (error: Error) => {
+      if (settled) return;
+      settled = true;
+      clearTimeout(timer);
+      reject(error);
+    };
+    const ok = () => {
+      if (settled) return;
+      settled = true;
+      clearTimeout(timer);
+      resolve();
+    };
     child.stderr.on("data", (chunk: Buffer) => {
       stderr += chunk.toString();
     });
-    child.on("error", reject);
+    child.on("error", fail);
     child.on("close", (code) => {
-      if (code === 0) resolve();
-      else reject(new Error(stderr.trim() || `${command} exited ${code}`));
+      if (code === 0) ok();
+      else fail(new Error(stderr.trim() || `${command} exited ${code}`));
     });
   });
+}
+
+function isEnoent(error: unknown): boolean {
+  return typeof error === "object" && error !== null && "code" in error && (error as { code: unknown }).code === "ENOENT";
 }
 
 async function readPdf(filePath: string, imagePages: number[]): Promise<DeckSlide[]> {
@@ -41,8 +64,15 @@ async function readPdf(filePath: string, imagePages: number[]): Promise<DeckSlid
   return slides;
 }
 
-async function readPptx(filePath: string): Promise<DeckSlide[]> {
-  const slides = await extractPptx(await readFile(filePath));
+async function readPptx(bytes: Buffer): Promise<DeckSlide[]> {
+  let slides;
+  try {
+    slides = await extractPptx(bytes);
+  } catch (error) {
+    const detail = error instanceof Error ? error.message : String(error);
+    throw new Error(`打不开课件：这不是有效的 .pptx。（${detail}）`);
+  }
+  if (slides.length === 0) throw new Error("课件里没有幻灯片。");
   const dir = path.join(tmpdir(), `bloom-deck-${Date.now()}`);
   await mkdir(dir, { recursive: true });
   const out: DeckSlide[] = [];
@@ -75,7 +105,17 @@ async function readPptx(filePath: string): Promise<DeckSlide[]> {
 
 export async function readDeckFile(filePath: string, imagePages: number[] = []): Promise<DeckSlide[]> {
   const ext = path.extname(filePath).toLowerCase();
+  if (ext !== ".pdf" && ext !== ".pptx") {
+    throw new Error(`课件需要是 .pdf 或 .pptx，收到的是 ${ext || "无扩展名"}。`);
+  }
+  let bytes: Buffer;
+  try {
+    bytes = await readFile(filePath);
+  } catch (error) {
+    if (isEnoent(error)) throw new Error(`找不到课件：${filePath}`);
+    throw error;
+  }
+  if (bytes.length === 0) throw new Error("课件是空文件。");
   if (ext === ".pdf") return readPdf(filePath, imagePages);
-  if (ext === ".pptx") return readPptx(filePath);
-  throw new Error("课件需要是 .pdf 或 .pptx。");
+  return readPptx(bytes);
 }
