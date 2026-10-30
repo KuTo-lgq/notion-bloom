@@ -1,5 +1,9 @@
 # Notion Bloom
 
+PPT → Notion lecture notes
+
+课件 → Notion 讲解
+
 把一份课件做成一页能读的 Notion 讲解，并排好版式。
 
 你准备好 pdf 或 pptx，告诉编程助手用什么语言写、放到哪个 Notion 页面。助手写正文。Bloom 从课件里抽出文字和需要的截图，检查这篇讲解能不能一步步读下去，通过之后写入 Notion，再调整标题、提示框、封面和颜色。
