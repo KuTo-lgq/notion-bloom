@@ -79,6 +79,18 @@ Bloom 使用你交给助手的 integration token。在 Cursor 里登录过 Notio
 
 课件上的数字和公式按原样留下。课件里读不出的式子标成【公式缺】。内容检查通过之后，才开始排版。
 
+## 测试
+
+```bash
+npm test
+```
+
+会跑夹具课件、坏输入，以及安装冒烟。单独检查一份课件：
+
+```bash
+npx tsx scripts/check-deck.ts examples/fixtures/short.pptx
+```
+
 ## 许可证
 
 [MIT](LICENSE)
