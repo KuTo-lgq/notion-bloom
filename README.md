@@ -16,6 +16,16 @@ Your coding agent writes the lecture. Bloom is the MCP server next to it: tools 
 
 It installs into the agent you already use: Cursor, Claude Code, Codex, or DeepSeek Harness. The published package is [notion-bloom on npm](https://www.npmjs.com/package/notion-bloom).
 
+## English PPT → bilingual lecture for exams
+
+This workflow turns an **English PPT** into a **Chinese–English bilingual lecture** for **exam prep**（汉英双语讲解，以应对考试）.
+
+Below is a real deck: AMA564 Deep Learning, Lecture 1. The left column is three English slides (pages 14, 68, and 70). The right column is the Bloom-style write-up: definitions and exam points in both languages, formulas in LaTeX.
+
+Bloom inserts a slide screenshot only at a key figure, not as a gallery of every slide. In this sample, pages 14 and 68 are explained with definitions and LaTeX. Only page 70 (activation functions) embeds the PPT figure.
+
+![AMA564 Lecture 1: three English slides beside a Chinese–English Bloom lecture. Pages 14 and 68 are written out; only the page 70 activation-function figure is embedded.](docs/ama564-l01-ppt-vs-lecture.jpg)
+
 ## Shortest path
 
 Sample deck: [examples/fixtures/short.pptx](examples/fixtures/short.pptx) (three slides). A real lecture deck is [examples/bayes-lecture.pptx](examples/bayes-lecture.pptx). What each file is for: [examples/README.md](examples/README.md).
