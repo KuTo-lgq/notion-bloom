@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Notion Bloom — static mock</title>
+<style>
+  :root {
+    --text: rgb(55, 53, 47);
+    --soft: rgba(55, 53, 47, 0.65);
+    --faint: rgba(55, 53, 47, 0.45);
+    --rule: rgba(55, 53, 47, 0.16);
+    --yellow: rgb(251, 243, 219);
+    --blue: rgb(231, 243, 248);
+    --gray: rgb(241, 241, 239);
+    --orange: rgb(251, 236, 221);
+    --code: rgb(247, 246, 243);
+  }
+  * { box-sizing: border-box; }
+  html { background: #f7f6f3; }
+  body {
+    margin: 0;
+    color: var(--text);
+    font-family: ui-sans-serif, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, "PingFang SC", "Noto Sans CJK SC", "Droid Sans Fallback", sans-serif;
+    font-size: 16px;
+    line-height: 1.5;
+  }
+  .banner {
+    background: #1b2a4a;
+    color: #f6f2ea;
+    padding: 14px 20px;
+  }
+  .banner p { max-width: 720px; margin: 0 auto; font-size: 14px; line-height: 1.45; }
+  .banner strong { font-weight: 650; }
+  .stage { padding: 28px 16px 64px; }
+  .page {
+    max-width: 900px;
+    margin: 0 auto;
+    background: #fff;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.06);
+  }
+  .cover {
+    height: 180px;
+    background:
+      radial-gradient(420px 180px at 20% 120%, rgba(255, 255, 255, 0.45), transparent 60%),
+      linear-gradient(100deg, #d7e4ea 0%, #f3e6d4 55%, #f7d7cc 100%);
+  }
+  .sheet { max-width: 708px; margin: 0 auto; padding: 0 24px 48px; }
+  .icon {
+    width: 78px;
+    height: 78px;
+    margin-top: -42px;
+    border-radius: 8px;
+    background: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 48px;
+    line-height: 1;
+  }
+  h1 {
+    margin: 12px 0 8px;
+    font-size: 40px;
+    font-weight: 700;
+    letter-spacing: -0.4px;
+    line-height: 1.2;
+  }
+  .kicker { margin: 0 0 20px; color: var(--soft); }
+  h2 { margin: 28px 0 8px; font-size: 24px; font-weight: 650; line-height: 1.3; }
+  h3 { margin: 18px 0 6px; font-size: 18px; font-weight: 650; color: rgb(51, 126, 169); }
+  p { margin: 8px 0; }
+  ol { margin: 8px 0 8px 1.2em; padding: 0; }
+  li { margin: 4px 0; }
+  .callout {
+    display: flex;
+    gap: 10px;
+    margin: 12px 0;
+    padding: 12px 14px;
+    border-radius: 4px;
+  }
+  .callout .emoji { flex: none; width: 24px; }
+  .eq {
+    margin: 10px 0;
+    padding: 8px 4px;
+    text-align: center;
+    font-family: "Iowan Old Style", Palatino, "Palatino Linotype", "Songti SC", serif;
+    font-size: 22px;
+  }
+  .derive {
+    margin: 8px 0 8px 2px;
+    padding-left: 14px;
+    border-left: 3px solid var(--rule);
+    color: var(--text);
+  }
+  .figure {
+    margin: 14px 0;
+    padding: 16px;
+    background: var(--gray);
+    border-radius: 4px;
+  }
+  .figure svg { display: block; width: 100%; height: auto; }
+  .figure figcaption { margin-top: 8px; color: var(--soft); font-size: 14px; }
+  .missing { background: var(--orange); }
+  .foot {
+    margin-top: 28px;
+    padding-top: 12px;
+    border-top: 1px solid var(--rule);
+    color: var(--faint);
+    font-size: 13px;
+  }
+  @media (max-width: 640px) {
+    .stage { padding: 0 0 32px; }
+    .page { border-radius: 0; }
+    .cover { height: 120px; }
+    h1 { font-size: 32px; }
+    .sheet { padding: 0 18px 36px; }
+  }
+</style>
+</head>
+<body>
+  <header class="banner">
+    <p><strong>Static mock.</strong> This is not a live Notion page and it does not call Notion. It shows the lecture shape Bloom lays out after the content check, using the story in <code>examples/fixtures/short.pptx</code>.</p>
+    <p><strong>静态示意。</strong> 不是 Notion 里的真实页面，也没有连接 Notion。版式按内容检查通过之后的讲解页来排，故事来自 <code>examples/fixtures/short.pptx</code>。</p>
+  </header>
+  <div class="stage">
+    <article class="page">
+      <div class="cover" role="img" aria-label="Cover"></div>
+      <div class="sheet">
+        <div class="icon" aria-hidden="true">📉</div>
+        <h1>一步更新会不会走过头</h1>
+        <p class="kicker">梯度下降 · PPT 第 1–3 页</p>
+
+        <div class="callout" style="background: var(--blue)">
+          <span class="emoji">📌</span>
+          <div>本讲只讲一件事：一步更新会不会走过头。先写损失，再写更新，最后看倍数的绝对值。</div>
+        </div>
+
+        <h2>步长太大会越过最优点</h2>
+        <h3>Overshoot</h3>
+        <p>方向对了也不够。二次损失的梯度就是变量自己，步长决定下一步是靠近原点还是甩出去。</p>
+        <ol>
+          <li>写出二次损失，它的梯度就是变量自己。</li>
+          <li>用更新式减去步长乘梯度。</li>
+          <li>把两项里的变量合并，得到下一步与这一步的倍数。</li>
+        </ol>
+        <div class="derive">
+          <p>损失对变量的导数就是变量本身。</p>
+          <p>下一步等于这一步减去步长乘这一步。</p>
+          <p>提出公因子后，倍数是 1 减去步长。</p>
+        </div>
+        <div class="eq">½ θ²</div>
+        <div class="eq">θ<sub>t+1</sub> = (1 − α) θ<sub>t</sub></div>
+
+        <div class="callout" style="background: var(--gray)">
+          <span class="emoji">💡</span>
+          <div>步长取 1.5 时，倍数是 −0.5。每一步换一次号，但离原点更近。</div>
+        </div>
+        <div class="callout" style="background: var(--yellow)">
+          <span class="emoji">🎯</span>
+          <div>考点：倍数的绝对值大于 1 就会发散。</div>
+        </div>
+
+        <h2>步长是沿梯度走多远</h2>
+        <p>定义：步长是沿梯度走多远。步长取 0，就停在原地。</p>
+        <div class="callout missing">
+          <span class="emoji">🖼</span>
+          <div>【图缺】课件第 3 页写了「曲线见下图」，文件里没有可截的整页图。这里不另画一条冒充截图的曲线。</div>
+        </div>
+        <figure class="figure">
+          <svg viewBox="0 0 640 200" role="img" aria-label="Schematic of one update with step 1.5">
+            <line x1="32" y1="168" x2="608" y2="168" stroke="rgba(55,53,47,.25)" stroke-width="1"/>
+            <line x1="320" y1="16" x2="320" y2="184" stroke="rgba(55,53,47,.25)" stroke-width="1"/>
+            <path d="M48 36 Q320 210 592 36" fill="none" stroke="rgb(217,115,13)" stroke-width="2"/>
+            <circle cx="150" cy="78" r="5" fill="rgb(55,53,47)"/>
+            <circle cx="400" cy="132" r="5" fill="rgb(51,126,169)"/>
+            <text x="158" y="72" fill="rgb(55,53,47)" font-size="14">θ₀</text>
+            <text x="408" y="126" fill="rgb(51,126,169)" font-size="14">θ₁</text>
+          </svg>
+          <figcaption>示意，不是课件截图。用来看「步长 1.5 时换号并靠近原点」。正式写入时，缺图仍标【图缺】。</figcaption>
+        </figure>
+
+        <p class="foot">Mock only · examples/fixtures/short.pptx · headings, callouts, formulas, and a missing figure. Numbers stay as on the slides.</p>
+      </div>
+    </article>
+  </div>
+</body>
+</html>
