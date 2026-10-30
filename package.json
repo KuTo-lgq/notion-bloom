@@ -1,8 +1,28 @@
 {
   "name": "notion-bloom",
   "version": "0.1.0",
+  "description": "Turn a lecture PDF or PPTX into a readable Notion page. The agent writes; Bloom extracts, checks, writes Notion, and lays the page out.",
   "license": "MIT",
-  "private": true,
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/KuTo-lgq/notion-bloom.git"
+  },
+  "homepage": "https://github.com/KuTo-lgq/notion-bloom",
+  "bugs": {
+    "url": "https://github.com/KuTo-lgq/notion-bloom/issues"
+  },
+  "engines": {
+    "node": ">=18"
+  },
+  "files": [
+    "bin",
+    "src",
+    "tsconfig.json",
+    "README.md",
+    "README.zh-CN.md",
+    "LICENSE",
+    "CHANGELOG.md"
+  ],
   "bin": {
     "notion-bloom": "bin/notion-bloom.js"
   },
@@ -19,16 +39,16 @@
     "@notionhq/client": "^5.28.0",
     "jszip": "^3.10.2",
     "katex": "^0.19.1",
+    "playwright": "^1.64.1",
     "react": "19.3.0",
     "react-dom": "19.3.0",
+    "tsx": "^4.23.15",
     "zod": "^4.6.7"
   },
   "devDependencies": {
     "@types/node": "^20",
     "@types/react": "^19.3.0",
     "@types/react-dom": "^19.3.0",
-    "playwright": "^1.64.1",
-    "tsx": "^4.23.15",
     "typescript": "^5"
   }
 }
