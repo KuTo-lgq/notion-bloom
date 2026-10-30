@@ -99,18 +99,8 @@ After Notion Bloom is installed, give the agent a PDF or PPTX, the language, and
 
 Numbers and formulas stay as they appear on the slides. A formula the deck does not yield is marked 【公式缺】. Layout starts after the content check passes.
 
-## Tests
-
-```bash
-npm test
-```
-
-That runs the fixture decks, the bad-input checks, and the install smoke test. One deck on its own:
-
-```bash
-npx tsx scripts/check-deck.ts examples/fixtures/short.pptx
-```
-
 ## License
 
 [MIT](LICENSE)
+
+Developing this repo? See [CONTRIBUTING.md](CONTRIBUTING.md).
