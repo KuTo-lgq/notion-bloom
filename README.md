@@ -1,26 +1,32 @@
+[English](./README.md) · [中文](./README.zh-CN.md)
+
 # Notion Bloom
 
-PPT → Notion lecture notes
+**PPT → Notion lecture notes**
 
-课件 → Notion 讲解
+[![License: MIT](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
+[![Node.js](https://img.shields.io/badge/Node.js-18%2B-339933?logo=node.js&logoColor=white)](https://nodejs.org)
 
-把一份课件做成一页能读的 Notion 讲解，并排好版式。
+Turn a PDF or PPTX into a Notion lecture you can read, with the layout already set.
 
-你准备好 pdf 或 pptx，告诉编程助手用什么语言写、放到哪个 Notion 页面。助手写正文。Bloom 从课件里抽出文字和需要的截图，检查这篇讲解能不能一步步读下去，通过之后写入 Notion，再调整标题、提示框、封面和颜色。
+Your coding agent writes the lecture. Bloom is the MCP server next to it: tools that extract text and the figures the lecture needs, a content check, a write into Notion, and a layout pass for headings, callouts, cover, and color. Prompts tell the agent how to call those tools. The model call stays in your agent. Bloom does not call a model API, and it is not a website.
 
-Bloom 不自己调用大模型，也不是一个网站。它装在你已经在用的编程助手里：Cursor、Claude Code、Codex 或 DeepSeek Harness。
+It installs into the agent you already use: Cursor, Claude Code, Codex, or DeepSeek Harness. The package is not on npm (`private: true`).
 
-## 安装
+## Install
 
-先安装 [Node.js](https://nodejs.org)。在你要使用 Bloom 的项目目录里执行：
+[Node.js](https://nodejs.org) 18 or newer. In the project your agent is working in:
 
 ```bash
 npx github:KuTo-lgq/notion-bloom install
 ```
 
-这条命令从公开的 GitHub 仓库安装 Bloom，并把它登记给当前项目里的编程助手。这个包没有发布到 npm。
+This registers the skill and the MCP entry for Cursor, Claude Code, Codex, and DeepSeek Harness. Reopen the agent when it finishes.
 
-也可以先把仓库克隆下来，再在那个文件夹里安装：
+- **Codex** loads the project config after you mark the project trusted.
+- **DeepSeek Harness** picks up the new config the next time you open it.
+
+### Clone
 
 ```bash
 git clone https://github.com/KuTo-lgq/notion-bloom.git
@@ -29,24 +35,35 @@ npm install
 npx notion-bloom install
 ```
 
-`npm install` 安装运行所需的依赖。`npx notion-bloom install` 把 Bloom 登记给当前项目里的编程助手。
+`npm install` fetches dependencies. `npx notion-bloom install` writes the same skill and MCP entry. Run both inside this folder. An empty directory cannot see the package, because it is not published to npm.
 
-装完后重新打开助手。Codex 要先把这个项目标成受信任，项目里的配置才会生效。DeepSeek Harness 改完配置后，重新打开一次。
+## Notion token
 
-## 使用
+Bloom uses an integration token you give the agent. A Notion login inside Cursor does not connect it.
 
-在助手里直接说你要什么，并把课件给它。例如：
+1. Open [Notion integrations](https://www.notion.so/my-integrations) and create an integration.
+2. Copy the **Internal Integration Secret**. It starts with `ntn_` or `secret_`.
+3. Paste it when the agent asks. The agent stores it as `NOTION_TOKEN` in that client's MCP config. It is your secret: keep it out of git and out of public places.
+4. On the page you want to fill, choose **Share → Add connections** and add that integration. Until you do, Bloom cannot open the page.
 
-- 「用这份 pdf，用中文写一篇讲解，放到我这个 Notion 页面下。」
+## Usage
+
+Give the agent a PDF or PPTX, the language, and the Notion page. For example:
+
 - “Write this lecture in English from this deck, and put it on my Notion page.”
+- 「用这份 pdf，用中文写一篇讲解，放到我这个 Notion 页面下。」
 - 「这一页内容已经对了，只排版，不要改句子和公式。」
 
-要写入 Notion 时，助手会先问你要 token。打开 [Notion integrations](https://www.notion.so/my-integrations)，新建一个 integration，复制 Internal Integration Secret。它以 `ntn_` 或 `secret_` 开头。把这串密钥贴给助手。这是你自己的密钥，不要用别人的，也不要发到公开的地方。
+| Step | Who |
+| --- | --- |
+| Extract text, and the screenshots the lecture needs | Bloom |
+| Write the lecture | Your agent |
+| Check that a reader can follow it step by step | Bloom |
+| Write the page to Notion | Bloom |
+| Set headings, callouts, cover, and color | Bloom |
 
-在 Cursor 或其他软件里登录过 Notion，不等于 Bloom 已经连上。Bloom 只认你交给助手的这串密钥。
+Numbers and formulas stay as they appear on the slides. A formula the deck does not yield is marked 【公式缺】. Layout starts after the content check passes.
 
-助手还会让你打开要写入的页面，点 Share，再点 Add connections，把刚才那个 integration 加进去。没有这一步，页面会打不开。
-
-写出来的讲解对着你给的那份课件。课件上的数字和公式会按原样留下来；课件里读不出的式子会标成【公式缺】，不会另编一个。内容还经不起读的时候，不会先去做排版。
+## License
 
 [MIT](LICENSE)
