@@ -34,8 +34,6 @@ Reopen the agent, then say:
 
 Paste your own integration token when the agent asks, and on that page choose **Share → Add connections**. The agent writes the lecture. Bloom reads the slides, checks that a reader can follow the draft, writes a Notion page, then sets headings, callouts, cover, and color. Numbers and formulas stay as they are on the slides. A formula the deck does not yield is marked 【公式缺】. Layout waits until the content check passes. A failed check is not written unless you ask to save it for review, and that page is not beautified.
 
-[See the static demo](docs/demo/index.html). It is a mock of the Notion page for this short deck, not a live integration.
-
 Common pitfalls: [FAQ](docs/FAQ.md).
 
 ## Install
