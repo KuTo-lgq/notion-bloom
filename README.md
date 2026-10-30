@@ -11,20 +11,26 @@ Turn a PDF or PPTX into a Notion lecture you can read, with the layout already s
 
 Your coding agent writes the lecture. Bloom is the MCP server next to it: tools that extract text and the figures the lecture needs, a content check, a write into Notion, and a layout pass for headings, callouts, cover, and color. Prompts tell the agent how to call those tools. The model call stays in your agent. Bloom does not call a model API, and it is not a website.
 
-It installs into the agent you already use: Cursor, Claude Code, Codex, or DeepSeek Harness. The package is not on npm (`private: true`).
+It installs into the agent you already use: Cursor, Claude Code, Codex, or DeepSeek Harness.
 
 ## Install
 
 [Node.js](https://nodejs.org) 18 or newer. In the project your agent is working in:
 
 ```bash
-npx github:KuTo-lgq/notion-bloom install
+npx notion-bloom install
 ```
 
-This registers the skill and the MCP entry for Cursor, Claude Code, Codex, and DeepSeek Harness. Reopen the agent when it finishes.
+This installs Bloom from npm and registers the skill and the MCP entry for Cursor, Claude Code, Codex, and DeepSeek Harness. Reopen the agent when it finishes.
 
 - **Codex** loads the project config after you mark the project trusted.
 - **DeepSeek Harness** picks up the new config the next time you open it.
+
+### From GitHub
+
+```bash
+npx github:KuTo-lgq/notion-bloom install
+```
 
 ### Clone
 
@@ -35,7 +41,7 @@ npm install
 npx notion-bloom install
 ```
 
-`npm install` fetches dependencies. `npx notion-bloom install` writes the same skill and MCP entry. Run both inside this folder. An empty directory cannot see the package, because it is not published to npm.
+`npm install` fetches dependencies. `npx notion-bloom install` writes the same skill and MCP entry.
 
 ## Notion token
 
