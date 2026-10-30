@@ -5,13 +5,14 @@
 **PPT → Notion lecture notes**
 
 [![License: MIT](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
+[![npm](https://img.shields.io/npm/v/notion-bloom)](https://www.npmjs.com/package/notion-bloom)
 [![Node.js](https://img.shields.io/badge/Node.js-18%2B-339933?logo=node.js&logoColor=white)](https://nodejs.org)
 
 Turn a PDF or PPTX into a Notion lecture you can read, with the layout already set.
 
 Your coding agent writes the lecture. Bloom is the MCP server next to it: tools that extract text and the figures the lecture needs, a content check, a write into Notion, and a layout pass for headings, callouts, cover, and color. Prompts tell the agent how to call those tools. The model call stays in your agent. Bloom does not call a model API, and it is not a website.
 
-It installs into the agent you already use: Cursor, Claude Code, Codex, or DeepSeek Harness.
+It installs into the agent you already use: Cursor, Claude Code, Codex, or DeepSeek Harness. The published package is [notion-bloom on npm](https://www.npmjs.com/package/notion-bloom).
 
 ## Install
 
@@ -21,18 +22,20 @@ It installs into the agent you already use: Cursor, Claude Code, Codex, or DeepS
 npx notion-bloom install
 ```
 
-This installs Bloom from npm and registers the skill and the MCP entry for Cursor, Claude Code, Codex, and DeepSeek Harness. Reopen the agent when it finishes.
+That installs [notion-bloom](https://www.npmjs.com/package/notion-bloom) from npm and registers the skill and the MCP entry for Cursor, Claude Code, Codex, and DeepSeek Harness. Reopen the agent when it finishes.
 
 - **Codex** loads the project config after you mark the project trusted.
 - **DeepSeek Harness** picks up the new config the next time you open it.
 
-### From GitHub
+### Alternatives
+
+GitHub:
 
 ```bash
 npx github:KuTo-lgq/notion-bloom install
 ```
 
-### Clone
+Clone:
 
 ```bash
 git clone https://github.com/KuTo-lgq/notion-bloom.git
@@ -40,8 +43,6 @@ cd notion-bloom
 npm install
 npx notion-bloom install
 ```
-
-`npm install` fetches dependencies. `npx notion-bloom install` writes the same skill and MCP entry.
 
 ## Notion token
 
@@ -54,7 +55,7 @@ Bloom uses an integration token you give the agent. A Notion login inside Cursor
 
 ## Usage
 
-Give the agent a PDF or PPTX, the language, and the Notion page. For example:
+After `npx notion-bloom install`, give the agent a PDF or PPTX, the language, and the Notion page. For example:
 
 - “Write this lecture in English from this deck, and put it on my Notion page.”
 - 「用这份 pdf，用中文写一篇讲解，放到我这个 Notion 页面下。」
