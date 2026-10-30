@@ -14,6 +14,26 @@
 
 它装进你已经在用的助手：Cursor、Claude Code、Codex 或 DeepSeek Harness。已发布的包是 [npm 上的 notion-bloom](https://www.npmjs.com/package/notion-bloom)。
 
+## 最短路径
+
+示例课件：[examples/fixtures/short.pptx](examples/fixtures/short.pptx)（三页）。一份真实讲解课件是 [examples/bayes-lecture.pptx](examples/bayes-lecture.pptx)。每个文件做什么见 [examples/README.md](examples/README.md)。
+
+在助手正在工作的项目目录里：
+
+```bash
+npx notion-bloom install
+```
+
+也可以对助手说：「从 npm 安装 Notion Bloom MCP（包名 `notion-bloom`）。」
+
+重新打开助手，然后说：
+
+> 用 examples/fixtures/short.pptx，用中文写一篇讲解，放到我这个 Notion 页面下。
+
+助手要 token 时，贴上你自己的 integration secret，并在目标页面选 **Share → Add connections**。助手写正文。Bloom 读课件、检查能不能一步步读下去、写入 Notion，再调整标题、提示框、封面和颜色。课件上的数字和公式按原样留下。课件里读不出的式子标成【公式缺】。内容检查通过之后才排版。检查没过不会写入，除非你明确要求先存一份待审稿，而那一页不会被美化。
+
+常见问题：[FAQ](docs/FAQ.zh-CN.md)。
+
 ## 安装
 
 需要 [Node.js](https://nodejs.org) 18 或更高版本。在助手正在工作的项目目录里执行：

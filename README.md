@@ -14,6 +14,26 @@ Your coding agent writes the lecture. Bloom is the MCP server next to it: tools 
 
 It installs into the agent you already use: Cursor, Claude Code, Codex, or DeepSeek Harness. The published package is [notion-bloom on npm](https://www.npmjs.com/package/notion-bloom).
 
+## Shortest path
+
+Sample deck: [examples/fixtures/short.pptx](examples/fixtures/short.pptx) (three slides). A real lecture deck is [examples/bayes-lecture.pptx](examples/bayes-lecture.pptx). What each file is for: [examples/README.md](examples/README.md).
+
+In the project your agent is working in:
+
+```bash
+npx notion-bloom install
+```
+
+Or tell the agent: “Install Notion Bloom MCP from npm (`notion-bloom`).”
+
+Reopen the agent, then say:
+
+> Write this lecture in English from examples/fixtures/short.pptx, and put it on my Notion page.
+
+Paste your own integration token when the agent asks, and on that page choose **Share → Add connections**. The agent writes the lecture. Bloom reads the slides, checks that a reader can follow the draft, writes a Notion page, then sets headings, callouts, cover, and color. Numbers and formulas stay as they are on the slides. A formula the deck does not yield is marked 【公式缺】. Layout waits until the content check passes. A failed check is not written unless you ask to save it for review, and that page is not beautified.
+
+Common pitfalls: [FAQ](docs/FAQ.md).
+
 ## Install
 
 [Node.js](https://nodejs.org) 18 or newer. In the project your agent is working in:
