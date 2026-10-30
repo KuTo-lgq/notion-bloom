@@ -16,6 +16,16 @@
 
 它装进你已经在用的助手：Cursor、Claude Code、Codex 或 DeepSeek Harness。已发布的包是 [npm 上的 notion-bloom](https://www.npmjs.com/package/notion-bloom)。
 
+## 英文 PPT → 汉英双语讲解，以应对考试
+
+这条流程把一份**英文 PPT**收成一篇**汉英双语讲解**，用来**应对考试**。
+
+下图是一门真实的课：深度学习第 1 讲。左栏是英文课件里的三页（第 14、68、70 页）。右栏是 Bloom 风格的讲解：定义和考点用中英对照写出，公式用 LaTeX。
+
+Bloom 只在关键图的位置放课件截图，不把每一页贴成图廊。这一讲里，第 14 页和第 68 页用定义和 LaTeX 讲完；只有第 70 页（激活函数）嵌入了课件上的图。
+
+![深度学习第 1 讲：三页英文课件与汉英双语讲解对照。第 14、68 页写成定义和公式；只有第 70 页的激活函数图被嵌进讲解。](docs/deeplearning-l01-ppt-vs-lecture.jpg)
+
 ## 最短路径
 
 示例课件：[examples/fixtures/short.pptx](examples/fixtures/short.pptx)（三页）。一份真实讲解课件是 [examples/bayes-lecture.pptx](examples/bayes-lecture.pptx)。每个文件做什么见 [examples/README.md](examples/README.md)。
