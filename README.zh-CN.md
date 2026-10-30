@@ -11,20 +11,26 @@
 
 编程助手写正文。Bloom 是旁边的 MCP 服务：工具负责抽出文字和讲解需要的截图、做内容检查、写入 Notion，再调整标题、提示框、封面和颜色。提示词告诉助手怎么调用这些工具。模型调用留在你的助手里。Bloom 不调用大模型接口，也不是一个网站。
 
-它装进你已经在用的助手：Cursor、Claude Code、Codex 或 DeepSeek Harness。这个包没有发布到 npm（`private: true`）。
+它装进你已经在用的助手：Cursor、Claude Code、Codex 或 DeepSeek Harness。
 
 ## 安装
 
 需要 [Node.js](https://nodejs.org) 18 或更高版本。在助手正在工作的项目目录里执行：
 
 ```bash
-npx github:KuTo-lgq/notion-bloom install
+npx notion-bloom install
 ```
 
-这条命令会为 Cursor、Claude Code、Codex 和 DeepSeek Harness 写入技能和 MCP 入口。完成后重新打开助手。
+这条命令从 npm 安装 Bloom，并为 Cursor、Claude Code、Codex 和 DeepSeek Harness 写入技能和 MCP 入口。完成后重新打开助手。
 
 - **Codex** 要先把项目标成受信任，项目里的配置才会生效。
 - **DeepSeek Harness** 在下一次打开时读到新配置。
+
+### 从 GitHub 安装
+
+```bash
+npx github:KuTo-lgq/notion-bloom install
+```
 
 ### 从克隆安装
 
@@ -35,7 +41,7 @@ npm install
 npx notion-bloom install
 ```
 
-`npm install` 安装依赖。`npx notion-bloom install` 写入同一套技能和 MCP 入口。两条命令都在这个文件夹里执行。包没有上 npm，换一个空目录找不到它。
+`npm install` 安装依赖。`npx notion-bloom install` 写入同一套技能和 MCP 入口。
 
 ## Notion 令牌
 
