@@ -4,6 +4,8 @@
 
 **课件 → 讲解正文 → Notion 排版。给编程助手用的 MCP：工具和提示词，不调用大模型接口。**
 
+![Notion Bloom](docs/notion-bloom-poster.jpg)
+
 [![License: MIT](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
 [![npm](https://img.shields.io/npm/v/notion-bloom)](https://www.npmjs.com/package/notion-bloom)
 [![Node.js](https://img.shields.io/badge/Node.js-18%2B-339933?logo=node.js&logoColor=white)](https://nodejs.org)
