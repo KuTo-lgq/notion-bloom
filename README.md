@@ -24,6 +24,14 @@ npx notion-bloom install
 
 That installs [notion-bloom](https://www.npmjs.com/package/notion-bloom) from npm and registers the skill and the MCP entry for Cursor, Claude Code, Codex, and DeepSeek Harness. Reopen the agent when it finishes.
 
+### Ask your agent
+
+You do not have to run the command yourself. In that same project, tell the agent:
+
+> Install Notion Bloom MCP from npm (`notion-bloom`). Run `npx notion-bloom install`, or wire the MCP the way the package documents.
+
+The agent installs the package and writes the skill and MCP entry.
+
 - **Codex** loads the project config after you mark the project trusted.
 - **DeepSeek Harness** picks up the new config the next time you open it.
 
@@ -55,7 +63,7 @@ Bloom uses an integration token you give the agent. A Notion login inside Cursor
 
 ## Usage
 
-After `npx notion-bloom install`, give the agent a PDF or PPTX, the language, and the Notion page. For example:
+After Notion Bloom is installed, give the agent a PDF or PPTX, the language, and the Notion page. For example:
 
 - “Write this lecture in English from this deck, and put it on my Notion page.”
 - 「用这份 pdf，用中文写一篇讲解，放到我这个 Notion 页面下。」

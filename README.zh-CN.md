@@ -24,6 +24,14 @@ npx notion-bloom install
 
 这条命令从 [npm](https://www.npmjs.com/package/notion-bloom) 安装 notion-bloom，并为 Cursor、Claude Code、Codex 和 DeepSeek Harness 写入技能和 MCP 入口。完成后重新打开助手。
 
+### 让助手安装
+
+不必自己跑命令。在同一个项目里对助手说：
+
+> 从 npm 安装 Notion Bloom MCP（包名 `notion-bloom`）。请执行 `npx notion-bloom install`，或按包文档接入 MCP。
+
+助手会安装这个包，并写入技能和 MCP 入口。
+
 - **Codex** 要先把项目标成受信任，项目里的配置才会生效。
 - **DeepSeek Harness** 在下一次打开时读到新配置。
 
@@ -55,7 +63,7 @@ Bloom 使用你交给助手的 integration token。在 Cursor 里登录过 Notio
 
 ## 使用
 
-执行 `npx notion-bloom install` 之后，把 PDF 或 PPTX 交给助手，并说明语言和目标页面。例如：
+装好 Notion Bloom 之后，把 PDF 或 PPTX 交给助手，并说明语言和目标页面。例如：
 
 - 「用这份 pdf，用中文写一篇讲解，放到我这个 Notion 页面下。」
 - “Write this lecture in English from this deck, and put it on my Notion page.”
