@@ -20,11 +20,11 @@ It installs into the agent you already use: Cursor, Claude Code, Codex, or DeepS
 
 This workflow turns an **English PPT** into a **Chinese–English bilingual lecture** for **exam prep**（汉英双语讲解，以应对考试）.
 
-Below is a real deck: AMA564 Deep Learning, Lecture 1. The left column is three English slides (pages 14, 68, and 70). The right column is the Bloom-style write-up: definitions and exam points in both languages, formulas in LaTeX.
+Below is a real deck: Deep Learning, Lecture 1. The left column is three English slides (pages 14, 68, and 70). The right column is the Bloom-style write-up: definitions and exam points in both languages, formulas in LaTeX.
 
 Bloom inserts a slide screenshot only at a key figure, not as a gallery of every slide. In this sample, pages 14 and 68 are explained with definitions and LaTeX. Only page 70 (activation functions) embeds the PPT figure.
 
-![AMA564 Lecture 1: three English slides beside a Chinese–English Bloom lecture. Pages 14 and 68 are written out; only the page 70 activation-function figure is embedded.](docs/ama564-l01-ppt-vs-lecture.jpg)
+![Deep Learning, Lecture 1: three English slides beside a Chinese–English Bloom lecture. Pages 14 and 68 are written out; only the page 70 activation-function figure is embedded.](docs/deeplearning-l01-ppt-vs-lecture.jpg)
 
 ## Shortest path
 
