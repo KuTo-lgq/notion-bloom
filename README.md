@@ -34,6 +34,10 @@ Reopen the agent, then say:
 
 Paste your own integration token when the agent asks, and on that page choose **Share → Add connections**. The agent writes the lecture. Bloom reads the slides, checks that a reader can follow the draft, writes a Notion page, then sets headings, callouts, cover, and color. Numbers and formulas stay as they are on the slides. A formula the deck does not yield is marked 【公式缺】. Layout waits until the content check passes. A failed check is not written unless you ask to save it for review, and that page is not beautified.
 
+[Before / after](docs/compare/index.html): the three slides in `examples/bayes-lecture.pptx`, and the lecture layout made from those same words and numbers. Static capture, not a live Notion page. `examples/fixtures/short.pptx` has no slide picture to show, so the comparison uses this deck.
+
+![Slides beside the lecture layout](docs/compare/preview.jpg)
+
 Common pitfalls: [FAQ](docs/FAQ.md).
 
 ## Install

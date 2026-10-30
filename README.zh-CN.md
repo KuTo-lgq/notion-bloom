@@ -34,6 +34,10 @@ npx notion-bloom install
 
 助手要 token 时，贴上你自己的 integration secret，并在目标页面选 **Share → Add connections**。助手写正文。Bloom 读课件、检查能不能一步步读下去、写入 Notion，再调整标题、提示框、封面和颜色。课件上的数字和公式按原样留下。课件里读不出的式子标成【公式缺】。内容检查通过之后才排版。检查没过不会写入，除非你明确要求先存一份待审稿，而那一页不会被美化。
 
+[课件和讲解的对照](docs/compare/index.html)：`examples/bayes-lecture.pptx` 的三页，以及按这三页原文排的讲解。静态截图，不是 Notion 在线页面。`examples/fixtures/short.pptx` 没有可截的整页图，所以对照用这一份。
+
+![课件页和讲解排版](docs/compare/preview.jpg)
+
 常见问题：[FAQ](docs/FAQ.zh-CN.md)。
 
 ## 安装
