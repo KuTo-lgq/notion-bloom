@@ -2,7 +2,7 @@
 
 # Notion Bloom
 
-**PPT → Notion lecture notes**
+**PPT → lecture write-up → Notion layout. An agent-facing MCP: tools and prompts, no model API.**
 
 [![License: MIT](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
 [![npm](https://img.shields.io/npm/v/notion-bloom)](https://www.npmjs.com/package/notion-bloom)
