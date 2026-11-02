@@ -4,6 +4,8 @@
 
 这份说明给改这个仓库的人。把 Notion Bloom 装进自己的助手，看 [中文说明](README.zh-CN.md)。
 
+公开和私下开发怎么对齐：[docs/dual-repo.zh-CN.md](docs/dual-repo.zh-CN.md)。
+
 需要 [Node.js](https://nodejs.org) 18 或更高版本。在检出的目录里：
 
 ```bash

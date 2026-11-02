@@ -4,6 +4,8 @@
 
 This is for people changing this repository. To install Notion Bloom in your own agent, use the [README](README.md).
 
+How public and private work stay in sync: [docs/dual-repo.md](docs/dual-repo.md).
+
 [Node.js](https://nodejs.org) 18 or newer. From a checkout:
 
 ```bash
