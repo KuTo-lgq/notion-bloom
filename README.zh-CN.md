@@ -6,13 +6,14 @@
 
 ![Notion Bloom](docs/notion-bloom-poster.jpg)
 
+[![CI](https://github.com/KuTo-lgq/notion-bloom/actions/workflows/ci.yml/badge.svg)](https://github.com/KuTo-lgq/notion-bloom/actions/workflows/ci.yml)
 [![License: MIT](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
 [![npm](https://img.shields.io/npm/v/notion-bloom)](https://www.npmjs.com/package/notion-bloom)
 [![Node.js](https://img.shields.io/badge/Node.js-18%2B-339933?logo=node.js&logoColor=white)](https://nodejs.org)
 
 把一份 PDF 或 PPTX 收成一页能读的 Notion 讲解，并排好版式。
 
-编程助手写正文。Bloom 是旁边的 MCP 服务：工具负责抽出文字和讲解需要的截图、做内容检查、写入 Notion，再调整标题、提示框、封面和颜色。提示词告诉助手怎么调用这些工具。模型调用留在你的助手里。Bloom 不调用大模型接口，也不是一个网站。
+编程助手写正文。Bloom 是旁边的 Model Context Protocol（MCP）服务：工具负责抽出文字和讲解需要的截图、做内容检查、写入 Notion，再调整标题、提示框、封面和颜色。提示词告诉助手怎么调用这些工具。模型调用留在你的助手里。Bloom 不调用大模型接口，也不是一个网站。
 
 它装进你已经在用的助手：Cursor、Claude Code、Codex 或 DeepSeek Harness。已发布的包是 [npm 上的 notion-bloom](https://www.npmjs.com/package/notion-bloom)。
 

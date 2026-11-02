@@ -6,13 +6,14 @@
 
 ![Notion Bloom](docs/notion-bloom-poster.jpg)
 
+[![CI](https://github.com/KuTo-lgq/notion-bloom/actions/workflows/ci.yml/badge.svg)](https://github.com/KuTo-lgq/notion-bloom/actions/workflows/ci.yml)
 [![License: MIT](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
 [![npm](https://img.shields.io/npm/v/notion-bloom)](https://www.npmjs.com/package/notion-bloom)
 [![Node.js](https://img.shields.io/badge/Node.js-18%2B-339933?logo=node.js&logoColor=white)](https://nodejs.org)
 
 Turn a PDF or PPTX into a Notion lecture you can read, with the layout already set.
 
-Your coding agent writes the lecture. Bloom is the MCP server next to it: tools that extract text and the figures the lecture needs, a content check, a write into Notion, and a layout pass for headings, callouts, cover, and color. Prompts tell the agent how to call those tools. The model call stays in your agent. Bloom does not call a model API, and it is not a website.
+Your coding agent writes the lecture. Bloom is the Model Context Protocol (MCP) server next to it: tools that extract text and the figures the lecture needs, a content check, a write into Notion, and a layout pass for headings, callouts, cover, and color. Prompts tell the agent how to call those tools. The model call stays in your agent. Bloom does not call a model API, and it is not a website.
 
 It installs into the agent you already use: Cursor, Claude Code, Codex, or DeepSeek Harness. The published package is [notion-bloom on npm](https://www.npmjs.com/package/notion-bloom).
 
