@@ -66,6 +66,39 @@ test("audit_structure flags a one-language heading, an unmarked exam point, a sk
   assert.match(skip?.repair ?? "", /第 2 步/);
 });
 
+test("audit_structure flags an outline and leaves short boxes alone", () => {
+  const outline = auditStructure(
+    page({
+      blocks: [
+        { id: "a", type: "bulleted_list_item", richText: [{ text: "随机梯度" }] },
+        { id: "b", type: "bulleted_list_item", richText: [{ text: "动量" }] },
+        { id: "c", type: "bulleted_list_item", richText: [{ text: "学习率" }] },
+      ],
+    }),
+  );
+  assert.ok(outline.findings.some((finding) => finding.ruleId === "shallow-explanation"));
+
+  const boxes = auditStructure(
+    page({
+      blocks: [
+        { id: "note", type: "paragraph", richText: [{ text: "使用说明：幻灯片编号 12/40 就是引用页码。" }] },
+        { id: "exam", type: "callout", richText: [{ text: "考试要点\n1. 步长过大就发散。\n2. 动量会抵消变号。" }] },
+        { id: "derive", type: "paragraph", richText: [{ text: "推导：\n1. 写出梯度\n2. 代入更新\n3. 合并系数" }] },
+        {
+          id: "deep",
+          type: "paragraph",
+          richText: [
+            {
+              text: "A large step can still diverge even when the gradient points the right way. Substitute the gradient into the update and look at the absolute value of one minus the step size.",
+            },
+          ],
+        },
+      ],
+    }),
+  );
+  assert.equal(boxes.findings.some((finding) => finding.ruleId === "shallow-explanation"), false);
+});
+
 test("scan_layout_rules rejects a long writing-instruction callout and a table", () => {
   const result = scanLayout(
     page({

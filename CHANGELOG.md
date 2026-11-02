@@ -6,6 +6,7 @@
 
 | Fail | 拦住什么 |
 | --- | --- |
+| `shallow_explanation` | 正文是中文或英文提纲，没有写成讲解。页码说明、自测、考试要点、对照表、逐步推导这些短框不算。语言本身不是硬 Fail |
 | `missing_citation` | 大节没有「PPT 第 n 页」或「第 n/N 页」 |
 | `missing_worked_example` | 课件上的手算小数没有写进讲解 |
 | `double_number` | 编号列表的文字又写了「1.」，页面变成「1. 1.」 |
@@ -32,7 +33,9 @@
 | `thin_adam` | Adam 没写清从 0 开始所以要除以 1−β^{k+1} |
 | `leaked_escape` | 正文里的 `\_`、`\^`，以及 `w_0` 这种没放进公式的下标 |
 
-`audit_formulas` 会标出写成 β₁ < β₂ 的公式。`audit_structure` 对长页同样 Fail：`double-number`、`leaked-escape`、`missing-ppt-citation`、`missing-self-test`、`thin-self-test`、`thin-research`、`fragmented-outline`、`wrong-claim`、`missing-optimizer-comparison`（没有对照表）。
+`audit_formulas` 会标出写成 β₁ < β₂ 的公式。`audit_structure` 对长页同样 Fail：`double-number`、`leaked-escape`、`missing-ppt-citation`、`missing-self-test`、`thin-self-test`、`thin-research`、`fragmented-outline`、`wrong-claim`、`missing-optimizer-comparison`（没有对照表）。段落或项目列表若是提纲，另报 `shallow-explanation`。
+
+口头说可以美化不算过关。只有内容审通过（`gate.pass`）才进入 bloom。
 
 课程页封面改用插图，不再从纯米色里抽。讲解语言跟用户的提示词走。要双语门禁时，在草稿里写 `locale: "bilingual"`。验收跟着眼前这份课件走，不附带某一门课的固定清单。
 

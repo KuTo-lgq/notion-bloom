@@ -7,6 +7,8 @@
  * a step, and the phrases authors use when they skip a derivation.
  */
 
+import { isShallowExplanation } from "@/pipeline/quality";
+
 import { LEAKED_ESCAPE, wrongBetaOrder } from "./formulas";
 import { flatten, isHeading, plainText, walk } from "./text";
 import type { PolishBlock, PolishPage } from "./types";
@@ -25,6 +27,7 @@ export type StructureFinding = {
     | "thin-research"
     | "missing-optimizer-comparison"
     | "fragmented-outline"
+    | "shallow-explanation"
     | "wrong-claim";
   blockId?: string;
   excerpt: string;
@@ -139,6 +142,16 @@ export function auditStructure(page: PolishPage, options?: { bilingual?: boolean
       }
     }
 
+    if (block.type === "callout" && isShallowExplanation(text)) {
+      findings.push({
+        ruleId: "shallow-explanation",
+        blockId: block.id,
+        excerpt: excerpt(text),
+        message: `「${excerpt(text)}」还是提纲，没有写成讲解。`,
+        repair: "写清这一步在做什么、为什么这样做。页码说明、自测、考试要点、对照表和逐步推导可以保持短。",
+      });
+    }
+
     if ((block.type === "paragraph" || block.type === "callout" || block.type === "quote") && HANDWAVE.test(text)) {
       findings.push({
         ruleId: "skipped-derivation",
@@ -209,6 +222,30 @@ export function auditStructure(page: PolishPage, options?: { bilingual?: boolean
       repair: "改成 Zhang 等人的 β₁ < √β₂。",
     });
   }
+  const outlineRun: PolishBlock[] = [];
+  const flushOutline = (): void => {
+    if (outlineRun.length === 0) return;
+    const text = outlineRun.map((block) => plainText(block.richText)).join("\n");
+    if (isShallowExplanation(text)) {
+      findings.push({
+        ruleId: "shallow-explanation",
+        blockId: outlineRun[0]?.id,
+        excerpt: excerpt(text),
+        message: `「${excerpt(text)}」还是提纲，没有写成讲解。`,
+        repair: "写清这一步在做什么、为什么这样做。页码说明、自测、考试要点、对照表和逐步推导可以保持短。",
+      });
+    }
+    outlineRun.length = 0;
+  };
+  for (const block of flatten(page.blocks)) {
+    if (block.type === "paragraph" || block.type === "bulleted_list_item" || block.type === "quote") {
+      outlineRun.push(block);
+      continue;
+    }
+    flushOutline();
+  }
+  flushOutline();
+
   const optimizers = ["SGD", "动量", "Momentum", "Nesterov", "AdaGrad", "RMSProp", "Adam"].filter((name) => new RegExp(name, "i").test(all));
   const hasTable = flatten(page.blocks).some((block) => block.originalType === "table" || block.originalType === "table_row");
   if (long && optimizers.length >= 4 && (!/比较|对照/.test(all) || !hasTable)) {

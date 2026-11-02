@@ -38,7 +38,7 @@ const IMPORTANT_SLIDE = /公式|定理|定义|算法|曲线|示意|损失|梯度
  * so a model that only audits still sees it.
  */
 export const PPT_AGENT_NOTE =
-  "讲解正文由调用方 Agent 撰写，本工具不调用模型。MCP 负责抽课件、给结构骨架、内容审、写入 Notion 和美化。跳步 = Fail。无推导的复杂公式 = Fail。内容未过关就美化 = Fail。";
+  "讲解正文由调用方 Agent 撰写，本工具不调用模型。MCP 负责抽课件、给结构骨架、内容审、写入 Notion 和美化。跳步 = Fail。无推导的复杂公式 = Fail。讲解过浅 = Fail。内容未过关就美化 = Fail。口头说可以美化不算过关，只有 gate.pass 为 true 才 bloom。";
 
 export function isImportantFigure(heading: string, slideText: string, sectionText = ""): boolean {
   const blob = `${heading}\n${slideText}\n${sectionText}`;

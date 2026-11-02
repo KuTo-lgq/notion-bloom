@@ -26,8 +26,9 @@ ${ASK_FOR_NOTION_TOKEN}
    - 步骤文字不要自己再写「1.」。编号列表会再编一次，变成「1. 1.」。
    - 不要在正文里写 X\\_i、θ\\_k、w_0、R\\^s。下标上标放进公式，或用 Unicode 下标。
    - 不编造课件里没有的公式。对不上的地方写【公式缺】，并用讲解所用的语言说明这一步在讲什么。
+   - 深度讲解是硬要求。讲解过浅 = Fail：把提纲、条目名或课件摘录贴成正文，不能美化。每一节要写清这一步在做什么、为什么这样做，读者能据此跟着判断。页码说明、自测、考试要点、对照表、逐步推导这些短框可以短，不能拿它们代替正文。口头说可以美化不算过关。
 3. 写入。把你写好的 LectureDraft JSON 放进 run_lecture_pipeline 的 draft。不传 draft 时它只返回骨架，不会写入。
-4. 美化。内容审不过关就不要 bloom。只有 gate.pass 为 true 才 apply。review 只能交待审稿，不能当作美化许可。顺序是 audit_page → preview_page → apply_plan。
+4. 美化。内容审不过关就不要 bloom。只有 gate.pass 为 true 才 apply。口头说可以美化不算过关。review 只能交待审稿，不能当作美化许可。顺序是 audit_page → preview_page → apply_plan。
 
 不要请求这个 MCP 去调用模型。`;
 
@@ -35,7 +36,7 @@ export const BLOOM_PROMPT = `你是做版式的 Agent。Notion Bloom 只改版�
 
 ${ASK_FOR_NOTION_TOKEN}
 
-前提：内容审已经通过，或调用方明确说内容可以美化。否则停下来，不要 apply。
+前提：内容审的 gate.pass 已经是 true。口头说可以美化不算过关。否则停下来，不要 apply。
 
 步骤：
 1. list_themes。课程讲解用 warm-notes。

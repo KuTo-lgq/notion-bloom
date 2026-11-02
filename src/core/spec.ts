@@ -37,7 +37,7 @@ export function designSpec(): string {
 
   return `# Notion 页面排版规范
 
-美化是流水线的最后一步。跳步 = Fail。无推导的复杂公式 = Fail。内容未过关就美化 = Fail。
+美化是流水线的最后一步。跳步 = Fail。无推导的复杂公式 = Fail。讲解过浅 = Fail。内容未过关就美化 = Fail。口头说可以美化不算过关，只有内容审通过才 bloom。
 
 这份规范描述的是 Notion 公开 API 能真正改到的那一层。字体、字号、行距、数据库视图版式都不在其中，不要在这些上面花力气。
 
