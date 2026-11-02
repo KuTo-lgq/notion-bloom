@@ -6,16 +6,17 @@
  *
  * 跳步 = Fail
  * 无推导的复杂公式 = Fail
+ * 讲解过浅 = Fail
  * 内容未过关就美化 = Fail
  */
 
-import { COMPLEX_FORMULA } from "./quality";
+import { COMPLEX_FORMULA, isShallowExplanation, QUALITY_FAIL } from "./quality";
 import type { LectureDraft } from "./types";
 
 export type LectureGap = {
   where: string;
   slide?: number;
-  kind: "derivation" | "example" | "figure" | "steps";
+  kind: "derivation" | "example" | "figure" | "steps" | "explanation";
   message: string;
   /** What to add on the slide. It names the hole. It does not supply a new formula. */
   hint: string;
@@ -33,6 +34,15 @@ export function listGaps(draft: LectureDraft): LectureGap[] {
         kind: "steps",
         message: "这一节没有可跟随的步骤。课件没写，这里不编。",
         hint: `在第 ${slide ?? "?"} 页用 1. 2. 3. 写下已经出现的操作，不要跳号，也不要写「显然」。`,
+      });
+    }
+    if (isShallowExplanation(section.prose)) {
+      gaps.push({
+        where,
+        slide,
+        kind: "explanation",
+        message: `${QUALITY_FAIL.shallowExplanation} 正文还是提纲。`,
+        hint: `把第 ${slide ?? "?"} 页写成能跟着做的讲解：这一步做什么、为什么、读者据此能判断什么。页码说明、自测、考试要点、对照表和逐步推导可以保持短。`,
       });
     }
     for (const formula of section.formulas) {

@@ -18,6 +18,12 @@ On the page you want to fill, choose **Share → Add connections** and add that 
 
 Pages listed in `NOTION_BLOOM_DENY` are skipped. The default list is empty.
 
+## Shallow explanation
+
+An outline pasted as the lecture fails the content check, in Chinese or English. The lecture has to say what a step does and why. A page-number note, a self-test, exam points, a comparison table, or a step-by-step derivation may stay short. Those boxes do not stand in for the explanation.
+
+Saying the page can be beautified does not pass the check. Layout starts only when the content check passes. The language of the lecture follows the request. Writing in one language is not, by itself, a failure.
+
 ## Formula gaps
 
 Bloom does not invent a formula it cannot read from the deck. Slide text is taken from the file. A formula that is only a picture, or that PDF text does not yield, stays marked 【公式缺】. Do not replace that mark with a look-alike expression.

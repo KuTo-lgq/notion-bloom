@@ -5,6 +5,7 @@ import { mkdtemp } from "node:fs/promises";
 import { tmpdir } from "node:os";
 import path from "node:path";
 
+import { BLOOM_PROMPT, WRITE_LECTURE_PROMPT } from "@/mcp/prompts";
 import { draftToBlocks, humanReviewBlocks } from "@/pipeline/blocks";
 import { draftFromIngest } from "@/pipeline/draft";
 import { runLecturePipeline } from "@/pipeline/run";
@@ -14,7 +15,7 @@ import { ingestDeck } from "@/pipeline/ingest";
 import { writeLongLecture } from "@/pipeline/long-deck";
 import { writeMiniLecture } from "@/pipeline/mini-deck";
 import { applyBloomIfSafe, assertPublishParent, blocksAfterUpload, dryRunBloom, publishDraft } from "@/pipeline/publish";
-import { QUALITY_FAIL } from "@/pipeline/quality";
+import { isShallowExplanation, QUALITY_FAIL } from "@/pipeline/quality";
 import type { PublishBlock } from "@/pipeline/blocks";
 import type { LectureDraft } from "@/pipeline/types";
 
@@ -55,6 +56,67 @@ test("a complete derivation passes, and beautify stays closed until then", () =>
   const gate = reviewContent(passing());
   assert.equal(gate.pass, true);
   assert.equal(refuseBeautify(gate).allowed, true);
+});
+
+test("a chinese outline cannot be beautified", () => {
+  const draft = passing();
+  draft.sections[0].prose = "随机梯度\n动量\n学习率\n收敛";
+  const gate = reviewContent(draft);
+  assert.equal(gate.pass, false);
+  assert.ok(gate.failures.some((failure) => failure.rule === "shallow_explanation" && failure.message.includes(QUALITY_FAIL.shallowExplanation)));
+  assert.equal(refuseBeautify(gate).allowed, false);
+  assert.ok(listGaps(draft).some((gap) => gap.kind === "explanation"));
+});
+
+test("an english outline cannot be beautified", () => {
+  const draft = passing();
+  draft.sections[0].prose = "Stochastic gradient\nMomentum\nLearning rate\nConvergence";
+  const gate = reviewContent(draft);
+  assert.equal(gate.pass, false);
+  assert.ok(gate.failures.some((failure) => failure.rule === "shallow_explanation"));
+  assert.equal(refuseBeautify(gate).allowed, false);
+});
+
+test("a thorough english lecture passes, and language is not a hard fail", () => {
+  const draft = passing();
+  draft.title = "Gradient descent";
+  draft.roadmap = "Write the update, substitute one step, and see when it diverges.";
+  draft.sections[0].titleZh = "A step that is too large overshoots";
+  draft.sections[0].titleEn = "A step that is too large overshoots";
+  draft.sections[0].prose =
+    "The direction can be right and the iterate can still diverge. Substitute the gradient of the quadratic into the update and look at the absolute value of one minus the step size. When that value is greater than one, the iterates move away from the origin.";
+  draft.sections[0].steps = [
+    { n: 1, text: "Write R of theta as theta squared over two, so the gradient is theta." },
+    { n: 2, text: "Substitute the update: the next theta is the current theta minus alpha times theta." },
+    { n: 3, text: "This shows theta sub t equals one minus alpha to the t times theta zero, and it diverges when the absolute value exceeds one." },
+  ];
+  draft.sections[0].example = "With a step size of 1.5 the sign flips every step, but the point moves closer to the origin.";
+  draft.sections[0].callouts = [{ icon: "🎯", tone: "exam", text: "Exam point: an absolute value greater than one diverges." }];
+  draft.locale = "user";
+  const gate = reviewContent(draft);
+  assert.deepEqual(gate.failures, []);
+  assert.equal(gate.pass, true);
+  assert.equal(refuseBeautify(gate).allowed, true);
+  assert.equal(gate.failures.some((failure) => failure.rule === "monolingual_heading"), false);
+});
+
+test("page notes, self-tests, exam points, tables, and derivations are not shallow", () => {
+  assert.equal(isShallowExplanation("使用说明：幻灯片编号 12/40 就是引用页码。"), false);
+  assert.equal(isShallowExplanation("自测：用课件上的数把这一步再算一遍。"), false);
+  assert.equal(isShallowExplanation("考试要点\n1. 步长过大就发散。\n2. 动量会抵消变号。"), false);
+  assert.equal(isShallowExplanation("对照表：SGD 与 Adam 记住的状态不同。"), false);
+  assert.equal(isShallowExplanation("推导：\n1. 写出梯度\n2. 代入更新\n3. 合并系数"), false);
+  assert.equal(isShallowExplanation("随机梯度\n动量\n学习率"), true);
+  assert.equal(isShallowExplanation("Stochastic gradient, Momentum, Learning rate"), true);
+});
+
+test("prompts require a deep explanation and refuse a verbal beautify pass", () => {
+  assert.match(WRITE_LECTURE_PROMPT, /讲解过浅 = Fail/);
+  assert.match(WRITE_LECTURE_PROMPT, /只有 gate\.pass 为 true/);
+  assert.match(WRITE_LECTURE_PROMPT, /口头说可以美化不算过关/);
+  assert.match(BLOOM_PROMPT, /gate\.pass 已经是 true/);
+  assert.match(BLOOM_PROMPT, /口头说可以美化不算过关/);
+  assert.doesNotMatch(BLOOM_PROMPT, /调用方明确说内容可以美化/);
 });
 
 test("a skipped step fails and blocks beautify", () => {

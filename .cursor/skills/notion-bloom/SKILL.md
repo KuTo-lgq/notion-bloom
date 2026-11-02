@@ -30,8 +30,9 @@ MCP 不调用模型。你写讲解，工具负责抽字、截图、内容审、�
    - 步骤文字不要自己再写「1.」。编号列表会再编一次，变成「1. 1.」。
    - 不要在正文里写 X\_i、θ\_k、w_0、R\^s。下标上标放进公式，或用 Unicode 下标。
    - 不编造课件里没有的公式。对不上的地方写【公式缺】，并用讲解所用的语言说明这一步在讲什么。
+   - 深度讲解是硬要求。讲解过浅 = Fail：把提纲、条目名或课件摘录贴成正文，不能美化。每一节要写清这一步在做什么、为什么这样做，读者能据此跟着判断。页码说明、自测、考试要点、对照表、逐步推导这些短框可以短，不能拿它们代替正文。口头说可以美化不算过关。
 3. 写入。把你写好的 LectureDraft JSON 放进 run_lecture_pipeline 的 draft。不传 draft 时它只返回骨架，不会写入。
-4. 美化。内容审不过关就不要 bloom。只有 gate.pass 为 true 才 apply。review 只能交待审稿，不能当作美化许可。顺序是 audit_page → preview_page → apply_plan。
+4. 美化。内容审不过关就不要 bloom。只有 gate.pass 为 true 才 apply。口头说可以美化不算过关。review 只能交待审稿，不能当作美化许可。顺序是 audit_page → preview_page → apply_plan。
 
 不要请求这个 MCP 去调用模型。
 
@@ -41,7 +42,7 @@ MCP 不调用模型。你写讲解，工具负责抽字、截图、内容审、�
 
 要调用会连接 Notion 的工具之前，先看本机有没有 NOTION_TOKEN。没有就停下来，向用户要他自己的 Internal Integration Secret（以 ntn_ 或 secret_ 开头）。拿到后只写进当前客户端的 MCP 配置，不要提交，不要写进讲解，也不要用别的 Notion 登录代替。Cursor 写 .cursor/mcp.json，Claude Code 写 .mcp.json，Codex 写 .codex/config.toml，DeepSeek Harness 写 .dsh/mcp.json，字段都是 NOTION_TOKEN。请用户把要写入的页面用 Share → Add connections 分享给这个 integration，然后重载 MCP，再继续。
 
-前提：内容审已经通过，或调用方明确说内容可以美化。否则停下来，不要 apply。
+前提：内容审的 gate.pass 已经是 true。口头说可以美化不算过关。否则停下来，不要 apply。
 
 步骤：
 1. list_themes。课程讲解用 warm-notes。

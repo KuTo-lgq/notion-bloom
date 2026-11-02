@@ -109,6 +109,7 @@ export type LectureDraft = {
 export type GateRule =
   | "skip_step"
   | "missing_derivation"
+  | "shallow_explanation"
   | "broken_formula"
   | "pseudo_latex"
   | "missing_figure"

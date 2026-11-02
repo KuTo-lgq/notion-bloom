@@ -3,12 +3,13 @@
  *
  * 跳步 = Fail
  * 无推导的复杂公式 = Fail
+ * 讲解过浅 = Fail
  * 内容未过关就美化 = Fail
  */
 
 import { checkKatex, LEAKED_ESCAPE, statesSqrtBetaOrder, wrongBetaOrder } from "@/core/formulas";
 
-import { COMPLEX_FORMULA, HANDWAVE, PSEUDO_LATEX, QUALITY_FAIL } from "./quality";
+import { COMPLEX_FORMULA, HANDWAVE, isShallowExplanation, PSEUDO_LATEX, QUALITY_FAIL } from "./quality";
 import type { ContentGate, GateFailure, LectureDraft, LectureFormula } from "./types";
 
 function skippedNumbers(steps: Array<{ n: number }>): number[] {
@@ -58,6 +59,13 @@ export function reviewContent(draft: LectureDraft): ContentGate {
         rule: "skip_step",
         where,
         message: `${QUALITY_FAIL.skipStep} 用「显然 / 略」带过了推导。`,
+      });
+    }
+    if (isShallowExplanation(section.prose)) {
+      failures.push({
+        rule: "shallow_explanation",
+        where,
+        message: `${QUALITY_FAIL.shallowExplanation} 正文还是提纲，没有写清这一步在做什么、为什么这样做。`,
       });
     }
     const prose = [section.prose, ...section.steps.map((step) => step.text)].join("\n");

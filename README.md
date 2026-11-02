@@ -42,7 +42,7 @@ Reopen the agent, then say:
 
 > Write this lecture in English from examples/fixtures/short.pptx, and put it on my Notion page.
 
-Paste your own integration token when the agent asks, and on that page choose **Share → Add connections**. The agent writes the lecture. Bloom reads the slides, checks that a reader can follow the draft, writes a Notion page, then sets headings, callouts, cover, and color. Numbers and formulas stay as they are on the slides. A formula the deck does not yield is marked 【公式缺】. Layout waits until the content check passes. A failed check is not written unless you ask to save it for review, and that page is not beautified.
+Paste your own integration token when the agent asks, and on that page choose **Share → Add connections**. The agent writes the lecture. Bloom reads the slides, checks that a reader can follow the draft, writes a Notion page, then sets headings, callouts, cover, and color. Numbers and formulas stay as they are on the slides. A formula the deck does not yield is marked 【公式缺】. Layout waits until the content check passes. Pasting an outline, in Chinese or English, fails that check (讲解过浅). A page-number note, a self-test, exam points, a comparison table, or a step-by-step derivation may stay short. Telling the agent the page can be beautified does not pass; only a passing content check does. The lecture language follows the request and is not, by itself, a failure. A failed check is not written unless you ask to save it for review, and that page is not beautified.
 
 Common pitfalls: [FAQ](docs/FAQ.md).
 
@@ -109,7 +109,7 @@ After Notion Bloom is installed, give the agent a PDF or PPTX, the language, and
 | Write the page to Notion | Bloom |
 | Set headings, callouts, cover, and color | Bloom |
 
-Numbers and formulas stay as they appear on the slides. A formula the deck does not yield is marked 【公式缺】. Layout starts after the content check passes.
+Numbers and formulas stay as they appear on the slides. A formula the deck does not yield is marked 【公式缺】. An outline is not a deep enough explanation, so layout starts only after the content check passes. Saying it can be beautified does not pass that check.
 
 ## License
 
