@@ -10,6 +10,7 @@
 [![License: MIT](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
 [![npm](https://img.shields.io/npm/v/notion-bloom)](https://www.npmjs.com/package/notion-bloom)
 [![Node.js](https://img.shields.io/badge/Node.js-18%2B-339933?logo=node.js&logoColor=white)](https://nodejs.org)
+[![KuTo-lgq/notion-bloom MCP server](https://glama.ai/mcp/servers/KuTo-lgq/notion-bloom/badges/score.svg)](https://glama.ai/mcp/servers/KuTo-lgq/notion-bloom)
 
 把一份 PDF 或 PPTX 收成一页能读的 Notion 讲解，并排好版式。
 
